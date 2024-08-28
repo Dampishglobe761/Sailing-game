@@ -1,9 +1,67 @@
-[gd_scene format=3 uid="uid://rl5n5h48kela"]
+[gd_scene load_steps=5 format=3 uid="uid://rl5n5h48kela"]
 
-[node name="Control" type="Control"]
+[ext_resource type="Script" path="res://code/bar.gd" id="1_0thq6"]
+[ext_resource type="Texture2D" uid="uid://cgqhiipgqgqyp" path="res://icon.svg" id="1_q8r0w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w43ys"]
+albedo_color = Color(0.721569, 0.152941, 0.231373, 1)
+albedo_texture = ExtResource("1_q8r0w")
+albedo_texture_force_srgb = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_fo7bu"]
+material = SubResource("StandardMaterial3D_w43ys")
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Background" type="Node3D" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
+size = Vector2i(1152, 648)
+size_2d_override = Vector2i(6, 0)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport"]
+transform = Transform3D(0.56285, -0.400983, 0.722781, -0.0947069, 0.837401, 0.538322, -0.821115, -0.371447, 0.433355, 2.61011, 1.89783, 1.85862)
+keep_aspect = 0
+fov = 113.254
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(4.18572, 0, 0, 0, 1.77188, 0, 0, 0, 3.78726, 0, 0, 0)
+mesh = SubResource("BoxMesh_fo7bu")
+
+[node name="Menu" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = 37.0
+offset_right = 223.0
+offset_bottom = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(67.49, 12.665)
+script = ExtResource("1_0thq6")
+
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+layout_mode = 0
+offset_right = 336.0
+offset_bottom = 648.0
