@@ -1,15 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://rl5n5h48kela"]
+[gd_scene load_steps=6 format=3 uid="uid://c4i5jxhcwfdt5"]
 
 [ext_resource type="Script" path="res://code/bar.gd" id="1_0thq6"]
-[ext_resource type="Texture2D" uid="uid://cgqhiipgqgqyp" path="res://icon.svg" id="1_q8r0w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w43ys"]
 albedo_color = Color(0.721569, 0.152941, 0.231373, 1)
-albedo_texture = ExtResource("1_q8r0w")
 albedo_texture_force_srgb = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_fo7bu"]
 material = SubResource("StandardMaterial3D_w43ys")
+
+[sub_resource type="LabelSettings" id="LabelSettings_gc7aw"]
+font_size = 50
+font_color = Color(0, 0, 0, 1)
+shadow_size = 100
+shadow_color = Color(0, 0.537255, 0.741176, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fh27r"]
+font_size = 100
+font_color = Color(0.717647, 0, 0, 0.262745)
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -24,6 +32,7 @@ grow_vertical = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
+handle_input_locally = false
 size = Vector2i(1152, 648)
 size_2d_override = Vector2i(6, 0)
 render_target_update_mode = 4
@@ -65,3 +74,32 @@ script = ExtResource("1_0thq6")
 layout_mode = 0
 offset_right = 336.0
 offset_bottom = 648.0
+
+[node name="Label" type="Label" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.132
+anchor_top = 0.117
+anchor_right = 0.132
+anchor_bottom = 0.117
+offset_left = -152.064
+offset_top = -69.816
+offset_right = 150.936
+offset_bottom = 82.184
+text = "Sailing game"
+label_settings = SubResource("LabelSettings_gc7aw")
+
+[node name="Label2" type="Label" parent="Menu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Kill yourself"
+
+[node name="Label3" type="Label" parent="Menu"]
+layout_mode = 0
+offset_left = 494.0
+offset_top = 198.0
+offset_right = 735.0
+offset_bottom = 335.0
+text = "PLAY"
+label_settings = SubResource("LabelSettings_fh27r")
