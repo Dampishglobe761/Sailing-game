@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4i5jxhcwfdt5"]
+[gd_scene load_steps=6 format=3 uid="uid://rl5n5h48kela"]
 
 [ext_resource type="Script" path="res://code/bar.gd" id="1_0thq6"]
 
@@ -91,9 +91,11 @@ label_settings = SubResource("LabelSettings_gc7aw")
 
 [node name="Label2" type="Label" parent="Menu"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Kill yourself"
+offset_left = 169.0
+offset_top = 8.0
+offset_right = 260.0
+offset_bottom = 31.0
+text = "Piss???"
 
 [node name="Label3" type="Label" parent="Menu"]
 layout_mode = 0
