@@ -17,7 +17,7 @@ shadow_color = Color(0, 0.537255, 0.741176, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_fh27r"]
 font_size = 100
-font_color = Color(0.717647, 0, 0, 0.262745)
+font_color = Color(0.717647, 0, 0, 0.109804)
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -101,5 +101,5 @@ offset_left = 494.0
 offset_top = 198.0
 offset_right = 735.0
 offset_bottom = 335.0
-text = "PLAY"
+text = "PLAY?"
 label_settings = SubResource("LabelSettings_fh27r")
