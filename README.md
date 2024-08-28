@@ -7,3 +7,4 @@
 * Make combat
 * Make menu
 * godot
+* Learn how to use git (Hardest thing)
