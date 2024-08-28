@@ -14,6 +14,7 @@ config/name="Sailing Game"
 run/main_scene="res://test.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+<<<<<<<HEADconfig/name="Sailing Game"
 
 [editor]
 
