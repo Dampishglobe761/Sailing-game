@@ -1,13 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://rl5n5h48kela"]
+[gd_scene load_steps=9 format=3 uid="uid://rl5n5h48kela"]
 
-[ext_resource type="Script" path="res://code/bar.gd" id="1_0thq6"]
+[ext_resource type="Script" path="res://addons/menuthings/screencontroller.gd" id="1_8rtt0"]
+[ext_resource type="Script" path="res://addons/menuthings/screen.gd" id="2_jkyn2"]
+[ext_resource type="Theme" uid="uid://cpurvhxcgnn3r" path="res://themes/mainmenu.tres" id="3_pmehl"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w43ys"]
-albedo_color = Color(0.721569, 0.152941, 0.231373, 1)
-albedo_texture_force_srgb = true
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s3shm"]
+sky_top_color = Color(0.699243, 0.308514, 0.289885, 1)
+sky_horizon_color = Color(0.764811, 0.587028, 0.583706, 1)
+ground_bottom_color = Color(0.36, 0.0396, 0.0449399, 1)
+ground_horizon_color = Color(0.764811, 0.587028, 0.583706, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_fo7bu"]
-material = SubResource("StandardMaterial3D_w43ys")
+[sub_resource type="Sky" id="Sky_q0pyx"]
+sky_material = SubResource("ProceduralSkyMaterial_s3shm")
+
+[sub_resource type="Environment" id="Environment_gyskx"]
+background_mode = 2
+sky = SubResource("Sky_q0pyx")
+ssao_enabled = true
+glow_enabled = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_gc7aw"]
 font_size = 50
@@ -17,7 +27,7 @@ shadow_color = Color(0, 0.537255, 0.741176, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_fh27r"]
 font_size = 100
-font_color = Color(0.717647, 0, 0, 0.109804)
+font_color = Color(1, 0.0352941, 0.227451, 1)
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -38,58 +48,66 @@ size_2d_override = Vector2i(6, 0)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport"]
-transform = Transform3D(0.56285, -0.400983, 0.722781, -0.0947069, 0.837401, 0.538322, -0.821115, -0.371447, 0.433355, 2.61011, 1.89783, 1.85862)
+transform = Transform3D(0.693402, 0.104016, 0.713004, 0, 0.989526, -0.144356, -0.720551, 0.100097, 0.686139, 2.61011, 1.89783, 1.85862)
 keep_aspect = 0
 fov = 113.254
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Background"]
-transform = Transform3D(4.18572, 0, 0, 0, 1.77188, 0, 0, 0, 3.78726, 0, 0, 0)
-mesh = SubResource("BoxMesh_fo7bu")
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Background"]
+transform = Transform3D(0.627442, -0.598654, 0.497926, -0.773512, -0.552629, 0.31029, 0.0894123, -0.57984, -0.809809, 0, 0, 0)
+light_energy = 1.9
+shadow_enabled = true
 
-[node name="Menu" type="Control" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Background"]
+environment = SubResource("Environment_gyskx")
+
+[node name="Root1" type="Control" parent="." node_paths=PackedStringArray("screens")]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_8rtt0")
+screens = [NodePath("Main"), NodePath("Credits")]
 
-[node name="ProgressBar" type="ProgressBar" parent="Menu"]
+[node name="Main" type="Control" parent="Root1"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_jkyn2")
+
+[node name="ProgressBar" type="ProgressBar" parent="Root1/Main"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -49.0
-offset_top = 37.0
-offset_right = 223.0
-offset_bottom = 67.0
+offset_left = 507.0
+offset_top = 341.0
+offset_right = 870.0
+offset_bottom = 368.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(67.49, 12.665)
-script = ExtResource("1_0thq6")
 
-[node name="ColorRect" type="ColorRect" parent="Menu"]
+[node name="ColorRect" type="ColorRect" parent="Root1/Main"]
 layout_mode = 0
 offset_right = 336.0
 offset_bottom = 648.0
+color = Color(0.563888, 0.320428, 0.0869495, 1)
 
-[node name="Label" type="Label" parent="Menu"]
+[node name="Label" type="Label" parent="Root1/Main"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.132
-anchor_top = 0.117
-anchor_right = 0.132
-anchor_bottom = 0.117
-offset_left = -152.064
-offset_top = -69.816
-offset_right = 150.936
-offset_bottom = 82.184
+anchor_left = 0.292
+anchor_right = 0.292
+offset_left = 19.32
+offset_right = 323.32
+offset_bottom = 69.0
 text = "Sailing game"
 label_settings = SubResource("LabelSettings_gc7aw")
 
-[node name="Label2" type="Label" parent="Menu"]
+[node name="Label2" type="Label" parent="Root1/Main"]
 layout_mode = 0
 offset_left = 169.0
 offset_top = 8.0
@@ -97,11 +115,68 @@ offset_right = 260.0
 offset_bottom = 31.0
 text = "Piss???"
 
-[node name="Label3" type="Label" parent="Menu"]
-layout_mode = 0
-offset_left = 494.0
-offset_top = 198.0
-offset_right = 735.0
-offset_bottom = 335.0
+[node name="Label3" type="Label" parent="Root1/Main"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.859
+anchor_top = 0.019
+anchor_right = 1.012
+anchor_bottom = 0.131
+offset_left = 784.64
+offset_top = 161.24
+offset_right = 1064.52
+offset_bottom = 293.76
+rotation = -0.523598
 text = "PLAY?"
 label_settings = SubResource("LabelSettings_fh27r")
+
+[node name="Credits" type="Button" parent="Root1/Main"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 66.0
+offset_top = 533.0
+offset_right = 287.0
+offset_bottom = 590.0
+grow_vertical = 0
+text = "Credits"
+
+[node name="Credits" type="Control" parent="Root1"]
+layout_mode = 1
+anchor_right = 28.8
+anchor_bottom = 16.2
+script = ExtResource("2_jkyn2")
+
+[node name="MarginContainer" type="MarginContainer" parent="Root1/Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Inner" type="MarginContainer" parent="Root1/Credits/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Back" type="Button" parent="Root1/Credits/MarginContainer/Inner"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Back"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Root1/Credits/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("3_pmehl")
+text = "WWWWWWWWWWWWWWWWW"
+
+[connection signal="pressed" from="Root1/Main/Credits" to="Root1/Credits" method="fswitch"]
+[connection signal="pressed" from="Root1/Credits/MarginContainer/Inner/Back" to="Root1/Main" method="fswitch"]
