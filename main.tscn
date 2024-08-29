@@ -71,7 +71,6 @@ script = ExtResource("1_8rtt0")
 screens = [NodePath("Main"), NodePath("Credits")]
 
 [node name="Main" type="Control" parent="Root1"]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -145,6 +144,7 @@ grow_vertical = 0
 text = "Credits"
 
 [node name="Credits" type="Control" parent="Root1"]
+visible = false
 layout_mode = 1
 anchor_right = 28.8
 anchor_bottom = 16.2
