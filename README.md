@@ -8,3 +8,5 @@
 * Make menu
 * godot
 * Learn how to use git (Hardest thing)
+* Player is done
+* All controls have controller support as well
