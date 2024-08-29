@@ -1,9 +1,11 @@
 @tool
 extends Control
+
 class_name Screen
 
-func _ready() -> void:
+func screen_load() -> void:
     pass
-    
-func fswitch():
+
+
+func fswitch() -> void:
     get_parent().switch(self)
