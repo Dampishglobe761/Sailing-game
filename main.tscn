@@ -61,12 +61,14 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Background"]
 environment = SubResource("Environment_gyskx")
 
-[node name="Root1" type="Control" parent="."]
+[node name="Root1" type="Control" parent="." node_paths=PackedStringArray("screens")]
+process_mode = 1
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_8rtt0")
+screens = [NodePath("Main"), NodePath("Credits")]
 
 [node name="Main" type="Control" parent="Root1"]
 visible = false
@@ -160,24 +162,27 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="Inner" type="MarginContainer" parent="Root1/Credits/MarginContainer"]
+[node name="Panel" type="Panel" parent="Root1/Credits/MarginContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme = ExtResource("3_pmehl")
 
-[node name="Back" type="Button" parent="Root1/Credits/MarginContainer/Inner"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Root1/Credits/MarginContainer/Panel"]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-text = "Back"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Root1/Credits/MarginContainer"]
-layout_mode = 2
+offset_right = 1088.0
+offset_bottom = 584.0
 theme = ExtResource("3_pmehl")
 text = "Put liceneces here later. I hate lawyers"
 script = ExtResource("4_6r1kj")
 
+[node name="Back" type="Button" parent="Root1/Credits"]
+layout_mode = 2
+offset_left = 48.0
+offset_top = 569.0
+offset_right = 93.0
+offset_bottom = 600.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Back"
+
 [connection signal="pressed" from="Root1/Main/Credits" to="Root1/Credits" method="fswitch"]
-[connection signal="pressed" from="Root1/Credits/MarginContainer/Inner/Back" to="Root1/Main" method="fswitch"]
+[connection signal="pressed" from="Root1/Credits/Back" to="Root1/Main" method="fswitch"]
