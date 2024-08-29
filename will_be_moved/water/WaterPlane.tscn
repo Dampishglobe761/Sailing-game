@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b35mxcc3d74di"]
 
-[ext_resource type="Material" uid="uid://cr3d3bff3sxup" path="res://Stylized_Water.material" id="1_efc70"]
+[ext_resource type="Material" uid="uid://cr3d3bff3sxup" path="res://will_be_moved/water/Stylized_Water.material" id="1_efc70"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vgt8a"]
 size = Vector2(10, 10)
