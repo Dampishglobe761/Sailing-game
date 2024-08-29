@@ -13,7 +13,8 @@ config_version=5
 config/name="Sailing Game"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-<<<<<<<HEADconfig/name="Sailing Game"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
 
 [editor]
 
@@ -70,3 +71,6 @@ crouch={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":8,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
+
+[editor_plugins]
+enabled=PackedStringArray("res://addons/menuthings/plugin.cfg")
