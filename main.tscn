@@ -1,9 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://rl5n5h48kela"]
+[gd_scene load_steps=8 format=3 uid="uid://rl5n5h48kela"]
 
 [ext_resource type="Script" path="res://addons/menuthings/screencontroller.gd" id="1_8rtt0"]
 [ext_resource type="Script" path="res://addons/menuthings/screen.gd" id="2_jkyn2"]
-[ext_resource type="Theme" uid="uid://cpurvhxcgnn3r" path="res://themes/mainmenu.tres" id="3_pmehl"]
-[ext_resource type="Script" path="res://scripts/creditmenu.gd" id="4_6r1kj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s3shm"]
 sky_top_color = Color(0.699243, 0.308514, 0.289885, 1)
@@ -150,6 +148,7 @@ anchor_bottom = 16.2
 script = ExtResource("2_jkyn2")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuRoot/Options"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -161,19 +160,8 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="Panel" type="Panel" parent="MenuRoot/Options/MarginContainer"]
-layout_mode = 2
-theme = ExtResource("3_pmehl")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="MenuRoot/Options/MarginContainer/Panel"]
-layout_mode = 2
-offset_right = 1088.0
-offset_bottom = 584.0
-theme = ExtResource("3_pmehl")
-text = "Put liceneces here later. I hate lawyers"
-script = ExtResource("4_6r1kj")
-
 [node name="Back" type="Button" parent="MenuRoot/Options"]
+visible = false
 layout_mode = 2
 offset_left = 48.0
 offset_top = 569.0

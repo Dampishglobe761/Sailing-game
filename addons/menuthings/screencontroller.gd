@@ -13,6 +13,7 @@ func _ready() -> void:
     for screen in get_children():
         setstate(screen, false)
     setstate(screens[current_screen], true)
+    screens[current_screen].screen_load()
 
 func getallnodes(node: Node, state: bool):
     for N in node.get_children():
@@ -31,3 +32,4 @@ func switch(screen: Screen):
     setstate(screens[current_screen], false)
     current_screen = screens.find(screen)
     setstate(screens[current_screen], true)
+    screens[current_screen].screen_load()
