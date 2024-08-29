@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://rl5n5h48kela"]
+[gd_scene load_steps=11 format=3 uid="uid://rl5n5h48kela"]
 
 [ext_resource type="Script" path="res://addons/menuthings/screencontroller.gd" id="1_8rtt0"]
+[ext_resource type="Texture2D" uid="uid://ddypig3rehhef" path="res://icon.svg" id="1_64e7k"]
 [ext_resource type="Script" path="res://addons/menuthings/screen.gd" id="2_jkyn2"]
-[ext_resource type="Theme" uid="uid://cpurvhxcgnn3r" path="res://themes/mainmenu.tres" id="3_pmehl"]
-[ext_resource type="Script" path="res://scripts/creditmenu.gd" id="4_6r1kj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s3shm"]
 sky_top_color = Color(0.699243, 0.308514, 0.289885, 1)
@@ -19,6 +18,30 @@ background_mode = 2
 sky = SubResource("Sky_q0pyx")
 ssao_enabled = true
 glow_enabled = true
+
+[sub_resource type="GDScript" id="GDScript_bh0yy"]
+resource_name = "tempdecal"
+script/source = "extends Decal
+
+var dir := 1
+var tmp: float
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+    pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+    if position.y > 20 or position.y < -20:
+        dir *= -1
+
+    tmp = dir*.5
+    position.y += tmp
+    pass
+"
+
+[sub_resource type="BoxMesh" id="BoxMesh_sh1bq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gc7aw"]
 font_size = 50
@@ -49,7 +72,7 @@ size_2d_override = Vector2i(6, 0)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport"]
-transform = Transform3D(0.693402, 0.104016, 0.713004, 0, 0.989526, -0.144356, -0.720551, 0.100097, 0.686139, 2.61011, 1.89783, 1.85862)
+transform = Transform3D(0.489382, -0.203581, 0.847974, 0, 0.97237, 0.233445, -0.872069, -0.114244, 0.475861, 2.61011, 1.89783, 1.85862)
 keep_aspect = 0
 fov = 113.254
 
@@ -61,43 +84,55 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Background"]
 environment = SubResource("Environment_gyskx")
 
-[node name="Root1" type="Control" parent="." node_paths=PackedStringArray("screens")]
+[node name="Decal" type="Decal" parent="Background"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.023, -1.06117, 0)
+size = Vector3(2.0459, 14.8056, 2)
+texture_albedo = ExtResource("1_64e7k")
+distance_fade_enabled = true
+distance_fade_begin = 961.6
+distance_fade_length = 13.5
+script = SubResource("GDScript_bh0yy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(2.81649, 0, 0, 0, 0.1816, 0, 0, 0, 2.64315, 0, 0, 0)
+mesh = SubResource("BoxMesh_sh1bq")
+
+[node name="MenuRoot" type="Control" parent="."]
 process_mode = 1
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_8rtt0")
-screens = [NodePath("Main"), NodePath("Credits")]
 
-[node name="Main" type="Control" parent="Root1"]
+[node name="Main" type="Control" parent="MenuRoot"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_jkyn2")
 
-[node name="ProgressBar" type="ProgressBar" parent="Root1/Main"]
+[node name="ProgressBar" type="ProgressBar" parent="MenuRoot/Main"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 507.0
-offset_top = 341.0
-offset_right = 870.0
-offset_bottom = 368.0
+offset_left = 475.0
+offset_top = 243.0
+offset_right = 838.0
+offset_bottom = 283.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(67.49, 12.665)
 
-[node name="ColorRect" type="ColorRect" parent="Root1/Main"]
+[node name="ColorRect" type="ColorRect" parent="MenuRoot/Main"]
 layout_mode = 0
 offset_right = 336.0
 offset_bottom = 648.0
 color = Color(0.563888, 0.320428, 0.0869495, 1)
 
-[node name="Label" type="Label" parent="Root1/Main"]
+[node name="Label" type="Label" parent="MenuRoot/Main"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.292
@@ -108,7 +143,7 @@ offset_bottom = 69.0
 text = "Sailing game"
 label_settings = SubResource("LabelSettings_gc7aw")
 
-[node name="Label2" type="Label" parent="Root1/Main"]
+[node name="Label2" type="Label" parent="MenuRoot/Main"]
 layout_mode = 0
 offset_left = 169.0
 offset_top = 8.0
@@ -116,7 +151,7 @@ offset_right = 260.0
 offset_bottom = 31.0
 text = "Piss???"
 
-[node name="Label3" type="Label" parent="Root1/Main"]
+[node name="Label3" type="Label" parent="MenuRoot/Main"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.859
@@ -131,7 +166,7 @@ rotation = -0.523598
 text = "PLAY?"
 label_settings = SubResource("LabelSettings_fh27r")
 
-[node name="Credits" type="Button" parent="Root1/Main"]
+[node name="OptionsMenu" type="Button" parent="MenuRoot/Main"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -141,16 +176,17 @@ offset_top = 533.0
 offset_right = 287.0
 offset_bottom = 590.0
 grow_vertical = 0
-text = "Credits"
+text = "Options"
 
-[node name="Credits" type="Control" parent="Root1"]
+[node name="Options" type="Control" parent="MenuRoot"]
 visible = false
 layout_mode = 1
 anchor_right = 28.8
 anchor_bottom = 16.2
 script = ExtResource("2_jkyn2")
 
-[node name="MarginContainer" type="MarginContainer" parent="Root1/Credits"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuRoot/Options"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -162,19 +198,8 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="Panel" type="Panel" parent="Root1/Credits/MarginContainer"]
-layout_mode = 2
-theme = ExtResource("3_pmehl")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Root1/Credits/MarginContainer/Panel"]
-layout_mode = 2
-offset_right = 1088.0
-offset_bottom = 584.0
-theme = ExtResource("3_pmehl")
-text = "Put liceneces here later. I hate lawyers"
-script = ExtResource("4_6r1kj")
-
-[node name="Back" type="Button" parent="Root1/Credits"]
+[node name="Back" type="Button" parent="MenuRoot/Options"]
+visible = false
 layout_mode = 2
 offset_left = 48.0
 offset_top = 569.0
@@ -184,5 +209,5 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Back"
 
-[connection signal="pressed" from="Root1/Main/Credits" to="Root1/Credits" method="fswitch"]
-[connection signal="pressed" from="Root1/Credits/Back" to="Root1/Main" method="fswitch"]
+[connection signal="pressed" from="MenuRoot/Main/OptionsMenu" to="MenuRoot/Options" method="fswitch"]
+[connection signal="pressed" from="MenuRoot/Options/Back" to="MenuRoot/Main" method="fswitch"]
