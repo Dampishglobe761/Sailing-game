@@ -60,13 +60,12 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Background"]
 environment = SubResource("Environment_gyskx")
 
-[node name="Root1" type="Control" parent="." node_paths=PackedStringArray("screens")]
+[node name="Root1" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_8rtt0")
-screens = [NodePath("Main"), NodePath("Credits")]
 
 [node name="Main" type="Control" parent="Root1"]
 visible = false
