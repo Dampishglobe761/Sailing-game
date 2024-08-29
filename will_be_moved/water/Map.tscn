@@ -1,9 +1,9 @@
 [gd_scene load_steps=14 format=3 uid="uid://c2cn81exi4yqx"]
 
-[ext_resource type="PackedScene" uid="uid://b35mxcc3d74di" path="res://Scenes/WaterPlane.tscn" id="1_8u2yh"]
+[ext_resource type="PackedScene" uid="uid://b35mxcc3d74di" path="res://will_be_moved/water/WaterPlane.tscn" id="1_8u2yh"]
 [ext_resource type="Shader" path="res://Shaders/Terrain.gdshader" id="1_italc"]
-[ext_resource type="Texture2D" uid="uid://b67a4e66obqlx" path="res://Shaders/AllSkyFree_Sky_EpicBlueSunset_Equirect.png" id="3_y2d7a"]
-[ext_resource type="Material" uid="uid://cr3d3bff3sxup" path="res://Stylized_Water.material" id="4_3pthh"]
+[ext_resource type="Texture2D" path="res://Shaders/AllSkyFree_Sky_EpicBlueSunset_Equirect.png" id="3_y2d7a"]
+[ext_resource type="Material" uid="uid://cr3d3bff3sxup" path="res://will_be_moved/water/Stylized_Water.material" id="4_3pthh"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_bnxbg"]
 size = Vector2(20, 20)

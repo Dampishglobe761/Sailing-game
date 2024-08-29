@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://rl5n5h48kela"]
+[gd_scene load_steps=10 format=3 uid="uid://rl5n5h48kela"]
 
 [ext_resource type="Script" path="res://addons/menuthings/screencontroller.gd" id="1_8rtt0"]
 [ext_resource type="Script" path="res://addons/menuthings/screen.gd" id="2_jkyn2"]
 [ext_resource type="Theme" uid="uid://cpurvhxcgnn3r" path="res://themes/mainmenu.tres" id="3_pmehl"]
+[ext_resource type="Script" path="res://scripts/creditmenu.gd" id="4_6r1kj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s3shm"]
 sky_top_color = Color(0.699243, 0.308514, 0.289885, 1)
@@ -175,7 +176,8 @@ text = "Back"
 [node name="RichTextLabel" type="RichTextLabel" parent="Root1/Credits/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("3_pmehl")
-text = "WWWWWWWWWWWWWWWWW"
+text = "Put liceneces here later. I hate lawyers"
+script = ExtResource("4_6r1kj")
 
 [connection signal="pressed" from="Root1/Main/Credits" to="Root1/Credits" method="fswitch"]
 [connection signal="pressed" from="Root1/Credits/MarginContainer/Inner/Back" to="Root1/Main" method="fswitch"]
