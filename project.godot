@@ -21,6 +21,10 @@ boot_splash/show_image=false
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/menuthings/plugin.cfg")
+
 [input]
 
 L-Shift={
@@ -71,6 +75,3 @@ crouch={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":8,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
-
-[editor_plugins]
-enabled=PackedStringArray("res://addons/menuthings/plugin.cfg")
