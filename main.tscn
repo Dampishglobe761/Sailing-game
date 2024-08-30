@@ -209,6 +209,12 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Back"
 
+[node name="Screen" type="Control" parent="MenuRoot"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_jkyn2")
+
 [connection signal="size_changed" from="Background/SubViewportContainer/SubViewport" to="." method="_on_viewport_size_changed"]
 [connection signal="pressed" from="MenuRoot/Main/OptionsMenu" to="MenuRoot/Options" method="fswitch"]
 [connection signal="pressed" from="MenuRoot/Options/Back" to="MenuRoot/Main" method="fswitch"]

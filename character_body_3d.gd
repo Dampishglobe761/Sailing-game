@@ -11,6 +11,9 @@ const BOB_FREQ = 2
 const BOB_AMP = 0.08
 var t_bob = 0.0
 
+const DEF_FOV = 75
+const SPRINT_FOV = 75
+
 
 var gravity = 9.8
 
@@ -45,17 +48,15 @@ func _physics_process(delta: float) -> void:
         velocity.y = JUMP_VELOCITY
     
     
+    speed = WALK_SPEED
+    player.scale.y = 1
     
     if Input.is_action_pressed("L-Shift"):
         speed = SPRINT_SPEED
         player.scale.y = 1
-    else:
-        if Input.is_action_pressed("crouch"):
-            speed = CROUCH_SPEED
-            player.scale.y = 0.5
-        else:
-            speed = WALK_SPEED
-            player.scale.y = 1
+    if Input.is_action_pressed("crouch"):
+        speed = CROUCH_SPEED
+        player.scale.y = 0.5
     
     # Get the input direction and handle the movement/deceleration.
     # As good practice, you should replace UI actions with custom gameplay actions.
@@ -81,5 +82,5 @@ func _physics_process(delta: float) -> void:
 func _headbob(time) -> Vector3:
     var pos = Vector3.ZERO
     pos.y = sin(time * BOB_FREQ) * BOB_AMP
-    pos.x = cos(time *BOB_FREQ / 2) *BOB_AMP
+    pos.x = cos(time * BOB_FREQ / 2) *BOB_AMP
     return pos
