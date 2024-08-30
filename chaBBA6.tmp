@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
 var speed
-const WALK_SPEED = 4.0
-const SPRINT_SPEED = 7.0
+const WALK_SPEED = 5.0
+const SPRINT_SPEED = 8.0
 const CROUCH_SPEED = 3.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.003
@@ -14,14 +14,11 @@ var t_bob = 0.0
 const DEF_FOV = 75
 const SPRINT_FOV = 75
 
-const CROUCH_HEAD = Vector3(.0,-.5,.0)
-const DEFAULT_HEAD = Vector3(.0,.0,.0)
 
 var gravity = 9.8
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-var campos = Vector3.ZERO
 @onready var player = $CollisionShape3D
 
 
@@ -34,6 +31,7 @@ func _unhandled_input(event):
         camera.rotate_x(-event.relative.y * SENSITIVITY)
 
 func _physics_process(delta: float) -> void:
+    
     if Input.get_joy_axis(0, JOY_AXIS_RIGHT_X) < -0.2 or Input.get_joy_axis(0, JOY_AXIS_RIGHT_X) > 0.2:
         head.rotate_y(-Input.get_joy_axis(0, JOY_AXIS_RIGHT_X) * SENSITIVITY * 15)
     if Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y) < -0.2 or Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y) > 0.2:
@@ -45,7 +43,7 @@ func _physics_process(delta: float) -> void:
         velocity += get_gravity() * delta
 
     # Handle jump.
-    if Input.is_action_pressed("jump") and is_on_floor():
+    if Input.is_action_just_pressed("jump") and is_on_floor():
         velocity.y = JUMP_VELOCITY
     
     
@@ -55,9 +53,7 @@ func _physics_process(delta: float) -> void:
         speed = SPRINT_SPEED
     if Input.is_action_pressed("crouch"):
         speed = CROUCH_SPEED
-        head.position = lerp(head.position, CROUCH_HEAD, delta*15)
-    else:
-        head.position = lerp(head.position, DEFAULT_HEAD, delta*15)
+        player.scale.y = 0.5
 
     var input_dir := Input.get_vector("left", "right", "forward", "backward")
     var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -74,14 +70,15 @@ func _physics_process(delta: float) -> void:
         velocity.z = lerp(velocity.z, direction.z * speed, delta * 2.0)
     
     
-    t_bob += PI * float(is_on_floor()) * delta * velocity.length() / 2.6
-    t_bob = wrapf(t_bob, -PI, PI)
-    t_bob = move_toward(t_bob, 0, delta)
+    t_bob += velocity.length() * float(is_on_floor()) * delta
+    print(t_bob)
     camera.transform.origin = _headbob(t_bob)
+
     move_and_slide()
 
 
 func _headbob(time) -> Vector3:
-    campos.y = sin(time * BOB_FREQ) * BOB_AMP
-    campos.x = cos(time * BOB_FREQ / 2) *BOB_AMP
-    return campos
+    var pos = Vector3.ZERO
+    pos.y = sin(time * BOB_FREQ) * BOB_AMP
+    pos.x = cos(time * BOB_FREQ / 2) *BOB_AMP
+    return pos

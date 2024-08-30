@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://rl5n5h48kela"]
+[gd_scene load_steps=13 format=3 uid="uid://rl5n5h48kela"]
 
 [ext_resource type="Script" path="res://addons/menuthings/screencontroller.gd" id="1_8rtt0"]
 [ext_resource type="Texture2D" uid="uid://ddypig3rehhef" path="res://icon.svg" id="1_64e7k"]
 [ext_resource type="Script" path="res://addons/menuthings/screen.gd" id="2_jkyn2"]
+[ext_resource type="Theme" uid="uid://cpurvhxcgnn3r" path="res://themes/mainmenu.tres" id="4_psmb2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s3shm"]
 sky_top_color = Color(0.699243, 0.308514, 0.289885, 1)
@@ -53,6 +54,24 @@ shadow_color = Color(0, 0.537255, 0.741176, 1)
 font_size = 100
 font_color = Color(1, 0.0352941, 0.227451, 1)
 
+[sub_resource type="GDScript" id="GDScript_22arh"]
+resource_name = "gotoscene"
+script/source = "extends Button
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+    pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+    pass
+
+func _pressed() -> void:
+    get_tree().change_scene_to_file(\"res://test.tscn\")
+"
+
 [node name="CanvasLayer" type="CanvasLayer"]
 
 [node name="Background" type="Node3D" parent="."]
@@ -100,9 +119,11 @@ mesh = SubResource("BoxMesh_sh1bq")
 [node name="MenuRoot" type="Control" parent="."]
 process_mode = 1
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_8rtt0")
 
 [node name="Main" type="Control" parent="MenuRoot"]
@@ -178,6 +199,19 @@ offset_bottom = 590.0
 grow_vertical = 0
 text = "Options"
 
+[node name="Play" type="Button" parent="MenuRoot/Main"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 4.787
+anchor_top = 1.962
+anchor_right = 4.787
+anchor_bottom = 1.962
+offset_left = -138.48
+offset_top = 62.52
+offset_right = 797.52
+offset_bottom = 284.52
+text = "Play"
+
 [node name="Options" type="Control" parent="MenuRoot"]
 visible = false
 layout_mode = 1
@@ -209,12 +243,35 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Back"
 
-[node name="Screen" type="Control" parent="MenuRoot"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Play" type="Control" parent="MenuRoot"]
+visible = false
+layout_mode = 1
+anchor_right = 28.8
+anchor_bottom = 16.2
 script = ExtResource("2_jkyn2")
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuRoot/Play"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.034725
+anchor_bottom = 0.0617422
+offset_right = -0.0928345
+offset_bottom = -0.145203
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_psmb2")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuRoot/Play/MarginContainer"]
+layout_mode = 2
+
+[node name="Start" type="Button" parent="MenuRoot/Play/MarginContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Start"
+script = SubResource("GDScript_22arh")
 
 [connection signal="size_changed" from="Background/SubViewportContainer/SubViewport" to="." method="_on_viewport_size_changed"]
 [connection signal="pressed" from="MenuRoot/Main/OptionsMenu" to="MenuRoot/Options" method="fswitch"]
+[connection signal="pressed" from="MenuRoot/Main/Play" to="MenuRoot/Play" method="fswitch"]
 [connection signal="pressed" from="MenuRoot/Options/Back" to="MenuRoot/Main" method="fswitch"]
