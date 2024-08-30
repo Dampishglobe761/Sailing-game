@@ -46,3 +46,4 @@ RichTextLabel/styles/background = SubResource("StyleBoxFlat_8ic4y")
 RichTextLabel/styles/fill = SubResource("StyleBoxFlat_865j4")
 RichTextLabel/styles/focus = null
 RichTextLabel/styles/normal = null
+VBoxContainer/constants/separation = 4

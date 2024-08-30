@@ -60,7 +60,7 @@ func _physics_process(delta: float) -> void:
         head.position = lerp(head.position, DEFAULT_HEAD, delta*15)
 
     var input_dir := Input.get_vector("left", "right", "forward", "backward")
-    var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+    var direction: Vector3 = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
     if is_on_floor():
         if direction:
@@ -74,9 +74,10 @@ func _physics_process(delta: float) -> void:
         velocity.z = lerp(velocity.z, direction.z * speed, delta * 2.0)
     
     
-    t_bob += PI * float(is_on_floor()) * delta * velocity.length() / 2.6
+    t_bob += PI * float(is_on_floor()) * delta * velocity.length() / 3.5
     t_bob = wrapf(t_bob, -PI, PI)
-    t_bob = move_toward(t_bob, 0, delta)
+    # t_bob = move_toward(t_bob, t_bob*direction.x*direction.y*direction.z, delta/4)
+    t_bob = move_toward(t_bob, 0, delta/4)
     camera.transform.origin = _headbob(t_bob)
     move_and_slide()
 

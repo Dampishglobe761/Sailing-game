@@ -86,7 +86,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(1152, 648)
+size = Vector2i(640, 360)
 size_2d_override = Vector2i(6, 0)
 render_target_update_mode = 4
 
@@ -127,96 +127,63 @@ grow_vertical = 2
 script = ExtResource("1_8rtt0")
 
 [node name="Main" type="Control" parent="MenuRoot"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource("2_jkyn2")
 
-[node name="ProgressBar" type="ProgressBar" parent="MenuRoot/Main"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 475.0
-offset_top = 243.0
-offset_right = 838.0
-offset_bottom = 283.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(67.49, 12.665)
-
-[node name="ColorRect" type="ColorRect" parent="MenuRoot/Main"]
-layout_mode = 0
-offset_right = 336.0
-offset_bottom = 648.0
-color = Color(0.563888, 0.320428, 0.0869495, 1)
-
 [node name="Label" type="Label" parent="MenuRoot/Main"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.292
-anchor_right = 0.292
-offset_left = 19.32
-offset_right = 323.32
-offset_bottom = 69.0
+layout_mode = 2
+offset_left = 303.0
+offset_top = 17.0
+offset_right = 663.0
+offset_bottom = 86.0
 text = "Sailing game"
 label_settings = SubResource("LabelSettings_gc7aw")
 
 [node name="Label2" type="Label" parent="MenuRoot/Main"]
-layout_mode = 0
-offset_left = 169.0
-offset_top = 8.0
-offset_right = 260.0
-offset_bottom = 31.0
+layout_mode = 2
+offset_left = 458.0
+offset_top = 86.0
+offset_right = 514.0
+offset_bottom = 109.0
 text = "Piss???"
 
 [node name="Label3" type="Label" parent="MenuRoot/Main"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.859
-anchor_top = 0.019
-anchor_right = 1.012
-anchor_bottom = 0.131
-offset_left = 784.64
-offset_top = 161.24
-offset_right = 1064.52
-offset_bottom = 293.76
-rotation = -0.523598
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -12.0
+offset_top = 40.0
+offset_right = -366.0
+offset_bottom = -183.0
+rotation = -0.261799
 text = "PLAY?"
 label_settings = SubResource("LabelSettings_fh27r")
 
-[node name="OptionsMenu" type="Button" parent="MenuRoot/Main"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 66.0
-offset_top = 533.0
-offset_right = 287.0
-offset_bottom = 590.0
-grow_vertical = 0
-text = "Options"
-
-[node name="Play" type="Button" parent="MenuRoot/Main"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuRoot/Main"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 4.787
-anchor_top = 1.962
-anchor_right = 4.787
-anchor_bottom = 1.962
-offset_left = -138.48
-offset_top = 62.52
-offset_right = 797.52
-offset_bottom = 284.52
+anchor_right = 0.189
+anchor_bottom = 1.0
+offset_right = 0.0399933
+grow_vertical = 2
+theme = ExtResource("4_psmb2")
+alignment = 1
+
+[node name="Play" type="Button" parent="MenuRoot/Main/VBoxContainer"]
+layout_mode = 2
 text = "Play"
+
+[node name="OptionsMenu" type="Button" parent="MenuRoot/Main/VBoxContainer"]
+layout_mode = 2
+text = "Options"
 
 [node name="Options" type="Control" parent="MenuRoot"]
 visible = false
 layout_mode = 1
-anchor_right = 28.8
-anchor_bottom = 16.2
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource("2_jkyn2")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuRoot/Options"]
@@ -246,15 +213,15 @@ text = "Back"
 [node name="Play" type="Control" parent="MenuRoot"]
 visible = false
 layout_mode = 1
-anchor_right = 28.8
-anchor_bottom = 16.2
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource("2_jkyn2")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuRoot/Play"]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.034725
-anchor_bottom = 0.0617422
+anchor_right = 1.00015
+anchor_bottom = 1.0004
 offset_right = -0.0928345
 offset_bottom = -0.145203
 grow_horizontal = 2
@@ -266,12 +233,11 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 
 [node name="Start" type="Button" parent="MenuRoot/Play/MarginContainer/HBoxContainer"]
-visible = false
 layout_mode = 2
 text = "Start"
 script = SubResource("GDScript_22arh")
 
 [connection signal="size_changed" from="Background/SubViewportContainer/SubViewport" to="." method="_on_viewport_size_changed"]
-[connection signal="pressed" from="MenuRoot/Main/OptionsMenu" to="MenuRoot/Options" method="fswitch"]
-[connection signal="pressed" from="MenuRoot/Main/Play" to="MenuRoot/Play" method="fswitch"]
+[connection signal="pressed" from="MenuRoot/Main/VBoxContainer/Play" to="MenuRoot/Play" method="fswitch"]
+[connection signal="pressed" from="MenuRoot/Main/VBoxContainer/OptionsMenu" to="MenuRoot/Options" method="fswitch"]
 [connection signal="pressed" from="MenuRoot/Options/Back" to="MenuRoot/Main" method="fswitch"]
