@@ -1,32 +1,38 @@
 extends CharacterBody3D
 
-var speed
+signal fell
+
 const WALK_SPEED = 4.0
 const SPRINT_SPEED = 7.0
 const CROUCH_SPEED = 3.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.003
-
-const BOB_FREQ = 2
-const BOB_AMP = 0.08
-var t_bob = 0.0
-
 const DEF_FOV = 75
 const SPRINT_FOV = 75
-
 const CROUCH_HEAD = Vector3(.0,-.5,.0)
 const DEFAULT_HEAD = Vector3(.0,.0,.0)
 
-var gravity = 9.8
+var speed: float
+var direction := Vector3.ZERO
+var input_dir := Vector2.ZERO
+
+enum {WALK, SPRINT, CROUCH}
+var inputmotion = false
+var falling_from_jump = false
+var state = WALK
+var head_pos = DEFAULT_HEAD
+
+var stamina: int = 1
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-var campos = Vector3.ZERO
 @onready var player = $CollisionShape3D
-
+@onready var animator = $Head/CameraAnimator
 
 func _ready():
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+    animator.speed_scale *= 0
+    animator.play("head_bob")
 
 func _unhandled_input(event):
     if event is InputEventMouseMotion:
@@ -34,55 +40,73 @@ func _unhandled_input(event):
         camera.rotate_x(-event.relative.y * SENSITIVITY)
 
 func _physics_process(delta: float) -> void:
+
     if Input.get_joy_axis(0, JOY_AXIS_RIGHT_X) < -0.2 or Input.get_joy_axis(0, JOY_AXIS_RIGHT_X) > 0.2:
         head.rotate_y(-Input.get_joy_axis(0, JOY_AXIS_RIGHT_X) * SENSITIVITY * 15)
     if Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y) < -0.2 or Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y) > 0.2:
         camera.rotate_x(-Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y) * SENSITIVITY * 15)
     camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
     
-    # Add the gravity.
+    input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+    direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+    if Input.is_action_pressed("crouch"):
+        state = CROUCH
+    elif Input.is_action_pressed("sprint"):
+        state = SPRINT
+    else:
+        state = WALK
+        
+    match state:
+        WALK:
+            speed = WALK_SPEED
+            head_pos = DEFAULT_HEAD
+            animator.speed_scale = 8
+        SPRINT:
+            speed = SPRINT_SPEED
+            head_pos = DEFAULT_HEAD
+            animator.speed_scale = 13
+        CROUCH:
+            speed = CROUCH_SPEED
+            head_pos = CROUCH_HEAD
+            animator.speed_scale = 4
+
     if not is_on_floor():
         velocity += get_gravity() * delta
 
-    # Handle jump.
+
     if Input.is_action_pressed("jump") and is_on_floor():
         velocity.y = JUMP_VELOCITY
+        falling_from_jump = false
+
+    head.position = lerp(head.position, head_pos, delta*15)
     
-    
-    speed = WALK_SPEED
-    player.scale.y = 1
-    if Input.is_action_pressed("L-Shift"):
-        speed = SPRINT_SPEED
-    if Input.is_action_pressed("crouch"):
-        speed = CROUCH_SPEED
-        head.position = lerp(head.position, CROUCH_HEAD, delta*15)
+    if not is_on_floor():
+        animator.speed_scale *= 0.4
+        
+    if direction:
+        animator.speed_scale *= 1
     else:
-        head.position = lerp(head.position, DEFAULT_HEAD, delta*15)
-
-    var input_dir := Input.get_vector("left", "right", "forward", "backward")
-    var direction: Vector3 = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
+        animator.speed_scale *= 0
+    
     if is_on_floor():
         if direction:
             velocity.x = direction.x * speed
             velocity.z = direction.z * speed
         else:
-            velocity.x = move_toward(velocity.x, 0, speed)
-            velocity.z = move_toward(velocity.z, 0, speed)
+            velocity.x = move_toward(velocity.x, 0, speed/12)
+            velocity.z = move_toward(velocity.z, 0, speed/12)
     else:
         velocity.x = lerp(velocity.x, direction.x * speed, delta * 2.0)
         velocity.z = lerp(velocity.z, direction.z * speed, delta * 2.0)
-    
-    
-    t_bob += PI * float(is_on_floor()) * delta * velocity.length() / 3.5
-    t_bob = wrapf(t_bob, -PI, PI)
-    # t_bob = move_toward(t_bob, t_bob*direction.x*direction.y*direction.z, delta/4)
-    t_bob = move_toward(t_bob, 0, delta/4)
-    camera.transform.origin = _headbob(t_bob)
+
     move_and_slide()
 
-
-func _headbob(time) -> Vector3:
-    campos.y = sin(time * BOB_FREQ) * BOB_AMP
-    campos.x = cos(time * BOB_FREQ / 2) *BOB_AMP
-    return campos
+    if is_on_floor():
+        if not falling_from_jump:
+            fell.emit()
+        falling_from_jump = true
+        
+func _on_fell():
+    print(velocity)
+    animator.play("head_robert", -1, 8)

@@ -86,7 +86,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(640, 360)
+size = Vector2i(960, 540)
 size_2d_override = Vector2i(6, 0)
 render_target_update_mode = 4
 
@@ -104,8 +104,8 @@ shadow_enabled = true
 environment = SubResource("Environment_gyskx")
 
 [node name="Decal" type="Decal" parent="Background"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.023, -1.06117, 0)
-size = Vector3(2.0459, 14.8056, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.023, -5.11221, 0)
+size = Vector3(2.0459, 22.9077, 2)
 texture_albedo = ExtResource("1_64e7k")
 distance_fade_enabled = true
 distance_fade_begin = 961.6
@@ -128,8 +128,11 @@ script = ExtResource("1_8rtt0")
 
 [node name="Main" type="Control" parent="MenuRoot"]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2_jkyn2")
 
 [node name="Label" type="Label" parent="MenuRoot/Main"]
@@ -182,8 +185,11 @@ text = "Options"
 [node name="Options" type="Control" parent="MenuRoot"]
 visible = false
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2_jkyn2")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuRoot/Options"]
@@ -213,8 +219,11 @@ text = "Back"
 [node name="Play" type="Control" parent="MenuRoot"]
 visible = false
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2_jkyn2")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuRoot/Play"]
@@ -233,6 +242,7 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 
 [node name="Start" type="Button" parent="MenuRoot/Play/MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Start"
 script = SubResource("GDScript_22arh")

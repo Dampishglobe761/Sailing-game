@@ -1,10 +1,66 @@
-[gd_scene load_steps=4 format=3 uid="uid://bolangv1xvisq"]
+[gd_scene load_steps=8 format=3 uid="uid://bolangv1xvisq"]
 
 [ext_resource type="Script" path="res://character_body_3d.gd" id="1_iyvcv"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u1jlu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7txm7"]
+
+[sub_resource type="Animation" id="Animation_b76vf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterBody3D/Head/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_olqsj"]
+resource_name = "head_bob"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterBody3D/Head/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.53333, 3, 4.5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.08, 0), Vector3(0, 0, 0), Vector3(0, -0.08, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_k3ym3"]
+resource_name = "head_robert"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterBody3D/Head/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.53333, 3, 4.5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.0799998, 0), Vector3(0, 0, 0), Vector3(0, -0.2, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qq6oe"]
+_data = {
+"RESET": SubResource("Animation_b76vf"),
+"head_bob": SubResource("Animation_olqsj"),
+"head_robert": SubResource("Animation_k3ym3")
+}
 
 [node name="Player" type="Node3D"]
 
@@ -21,3 +77,12 @@ shape = SubResource("CapsuleShape3D_7txm7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.515397, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Head"]
+
+[node name="CameraAnimator" type="AnimationPlayer" parent="CharacterBody3D/Head"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_qq6oe")
+}
+speed_scale = 1.825
+
+[connection signal="fell" from="CharacterBody3D" to="CharacterBody3D" method="_on_fell"]

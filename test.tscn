@@ -1,6 +1,26 @@
-[gd_scene load_steps=10 format=3 uid="uid://bguvxmp0rukfq"]
+[gd_scene load_steps=14 format=3 uid="uid://bguvxmp0rukfq"]
 
 [ext_resource type="PackedScene" uid="uid://bolangv1xvisq" path="res://Player.tscn" id="1_t6fw5"]
+
+[sub_resource type="GDScript" id="GDScript_gsh5r"]
+resource_name = "bitch"
+script/source = "extends Node3D
+
+@export var animation: AnimationPlayer
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+    start()
+    
+
+func start(_1 = \"\"):
+    animation.play(\"MoveRigid\")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+    pass
+"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tqnbg"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -30,7 +50,46 @@ albedo_color = Color(0.099986, 0.099986, 0.099986, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4kmh"]
 albedo_color = Color(0.0520569, 0.0506498, 0.364573, 1)
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="Animation" id="Animation_e54xf"]
+resource_name = "MoveRigid"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D8:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(6.77566, -0.210032, 5.46165), Vector3(6.77566, 3.50576, 5.46165), Vector3(6.77566, -0.210032, 5.46165)]
+}
+
+[sub_resource type="Animation" id="Animation_vpbqx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D8:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(6.77566, 2.8606, 5.46165)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_exvor"]
+_data = {
+"MoveRigid": SubResource("Animation_e54xf"),
+"RESET": SubResource("Animation_vpbqx")
+}
+
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("animation")]
+script = SubResource("GDScript_gsh5r")
+animation = NodePath("CSGBox3D8/AnimationPlayer")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_65mmq")
@@ -74,6 +133,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.77566, 2.8606, 5.46165)
 use_collision = true
 size = Vector3(4.50659, 0.180039, 4.60834)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CSGBox3D8"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_exvor")
+}
+
 [node name="The_plank" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5618, 4.03783, 6.52376)
 use_collision = true
@@ -96,3 +161,5 @@ size = Vector3(2.81006, 1.40424, 2.94543)
 
 [node name="Player" parent="." instance=ExtResource("1_t6fw5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.7913, 0)
+
+[connection signal="animation_finished" from="CSGBox3D8/AnimationPlayer" to="." method="start"]
