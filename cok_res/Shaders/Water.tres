@@ -1,0 +1,39 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://c3mh5p2w5s8g7"]
+
+[ext_resource type="Shader" path="res://cok_res/Shaders/Water.gdshader" id="1_xdsik"]
+[ext_resource type="Texture2D" uid="uid://gq8n64t6y4go" path="res://cok_res/Shaders/WaterPlaneNormal.tres" id="2_24cl4"]
+
+[sub_resource type="Gradient" id="Gradient_t3gbm"]
+interpolation_mode = 2
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ds8pf"]
+gradient = SubResource("Gradient_t3gbm")
+width = 16
+height = 16
+use_hdr = true
+fill_to = Vector2(0.0384615, 0.042735)
+repeat = 1
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_xdsik")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/albedo2 = Color(0, 0, 0, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.02
+shader_parameter/wave_direction = Vector2(2, 0)
+shader_parameter/wave_direction2 = Vector2(0, 1)
+shader_parameter/time_scale = 0.03
+shader_parameter/noise_scale = 10.0
+shader_parameter/height_scale = 0.11
+shader_parameter/color_deep = Color(0.0924, 0.15862, 0.66, 1)
+shader_parameter/color_shallow = Color(0.217403, 0.583731, 0.858934, 1)
+shader_parameter/beers_law = 2.0
+shader_parameter/depth_offset = -0.75
+shader_parameter/edge_scale = 0.1
+shader_parameter/near = 1.0
+shader_parameter/far = 100.0
+shader_parameter/edge_color = Color(0, 0, 0, 1)
+shader_parameter/wave = SubResource("GradientTexture2D_ds8pf")
+shader_parameter/texture_normal = ExtResource("2_24cl4")
+shader_parameter/texture_normal2 = ExtResource("2_24cl4")

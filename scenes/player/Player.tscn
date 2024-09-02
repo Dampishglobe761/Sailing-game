@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://bolangv1xvisq"]
 
-[ext_resource type="Script" path="res://character_body_3d.gd" id="1_iyvcv"]
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_iyvcv"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u1jlu"]
 

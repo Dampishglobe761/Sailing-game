@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://rl5n5h48kela"]
 
 [ext_resource type="Script" path="res://addons/menuthings/screencontroller.gd" id="1_8rtt0"]
-[ext_resource type="Texture2D" uid="uid://ddypig3rehhef" path="res://icon.svg" id="1_64e7k"]
+[ext_resource type="Texture2D" uid="uid://ddypig3rehhef" path="res://cok_res/icon.svg" id="1_64e7k"]
 [ext_resource type="Script" path="res://addons/menuthings/screen.gd" id="2_jkyn2"]
 [ext_resource type="Theme" uid="uid://cpurvhxcgnn3r" path="res://themes/mainmenu.tres" id="4_psmb2"]
 
@@ -69,7 +69,7 @@ func _process(delta: float) -> void:
     pass
 
 func _pressed() -> void:
-    get_tree().change_scene_to_file(\"res://test.tscn\")
+    get_tree().change_scene_to_file(\"res://test_scenes/test.tscn\")
 "
 
 [node name="CanvasLayer" type="CanvasLayer"]

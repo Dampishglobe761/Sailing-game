@@ -12,8 +12,10 @@ uniform vec2 wave_direction2 = vec2(0.0,1.0); // Direction of wave 2
 uniform float time_scale : hint_range(0.0, 0.2, 0.005) = 0.025; // Rate of movement multiplied by TIME
 uniform float noise_scale = 10.0;
 uniform float height_scale = 0.15;
-uniform sampler2D DEPTH_TEXTURE: hint_depth_texture, filter_linear_mipmap;
-uniform sampler2D SCREEN_TEXTURE: hint_screen_texture, filter_linear_mipmap;
+
+uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear_mipmap;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+
 
 uniform vec4 color_deep : source_color; // Deep depth color
 uniform vec4 color_shallow : source_color; // Shallow depth color
@@ -33,7 +35,6 @@ float fresnel(float amount, vec3 normal, vec3 view)
 {
 	return pow((1.0 - clamp(dot(normalize(normal), normalize(view)), 0.0, 1.0 )), amount);
 }
-
 float edge(float depth){
 	depth = 2.0 * depth - 1.0;
 	return near * far / (far + depth * (near - far));

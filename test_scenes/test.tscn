@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://bguvxmp0rukfq"]
 
-[ext_resource type="PackedScene" uid="uid://bolangv1xvisq" path="res://Player.tscn" id="1_t6fw5"]
+[ext_resource type="PackedScene" uid="uid://bolangv1xvisq" path="res://scenes/player/Player.tscn" id="1_t6fw5"]
 
 [sub_resource type="GDScript" id="GDScript_gsh5r"]
 resource_name = "bitch"
@@ -38,16 +38,13 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_akkg7"]
 albedo_color = Color(0.0146631, 0.228757, 0.013695, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ghl0"]
-albedo_color = Color(0.152941, 0.152941, 0.756863, 1)
-
 [sub_resource type="Animation" id="Animation_e54xf"]
 resource_name = "MoveRigid"
 length = 10.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CSGBox3D/CSGBox3D8:position")
+tracks/0/path = NodePath("ENV/CSGBox3D8:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -62,7 +59,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CSGBox3D/CSGBox3D8:position")
+tracks/0/path = NodePath("ENV/CSGBox3D8:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -87,9 +84,12 @@ albedo_color = Color(0.099986, 0.099986, 0.099986, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qxgi7"]
 albedo_color = Color(0.152941, 0.152941, 0.756863, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ghl0"]
+albedo_color = Color(0.152941, 0.152941, 0.756863, 1)
+
 [node name="Node3D" type="Node3D" node_paths=PackedStringArray("animation")]
 script = SubResource("GDScript_gsh5r")
-animation = NodePath("CSGBox3D/CSGBox3D8/AnimationPlayer")
+animation = NodePath("ENV/CSGBox3D8/AnimationPlayer")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_65mmq")
@@ -98,68 +98,75 @@ environment = SubResource("Environment_65mmq")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="Player" parent="." instance=ExtResource("1_t6fw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.71267, 0)
+
+[node name="ENV" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="ENV"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51204, -0.658813, -0.922039)
 use_collision = true
 size = Vector3(35.8047, 0.699463, 32.2182)
 material = SubResource("StandardMaterial3D_akkg7")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.9014, 2.66914, 0.085897)
-use_collision = true
-size = Vector3(0.777113, 6.07196, 32.2702)
-material = SubResource("StandardMaterial3D_0ghl0")
-
-[node name="The_plank" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(0.955665, 0.294457, 0, -0.294457, 0.955665, 0, 0, 0, 1, -15.0738, 4.69664, 7.4458)
+[node name="The_plank" type="CSGBox3D" parent="ENV"]
+transform = Transform3D(0.955665, 0.294457, 0, -0.294457, 0.955665, 0, 0, 0, 1, -12.5618, 4.03783, 6.52376)
 use_collision = true
 size = Vector3(31.3929, 0.180039, 2.48412)
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="CSGBox3D"]
+[node name="CSGBox3D8" type="CSGBox3D" parent="ENV"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.77566, 2.8606, 5.46165)
 use_collision = true
 size = Vector3(4.50659, 0.180039, 4.60834)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CSGBox3D/CSGBox3D8"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ENV/CSGBox3D8"]
 root_node = NodePath("../../..")
 libraries = {
 "": SubResource("AnimationLibrary_exvor")
 }
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.709, 2.70858, -0.0985411)
+[node name="CSGBox3D5" type="CSGBox3D" parent="ENV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.197, 2.04977, -1.02058)
 use_collision = true
 size = Vector3(0.777113, 6.03276, 32.4536)
 material = SubResource("StandardMaterial3D_a4kmh")
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1071, 1.381, 4.97589)
+[node name="CSGBox3D7" type="CSGBox3D" parent="ENV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.6191, 0.722187, 4.05385)
 use_collision = true
 size = Vector3(2.81006, 2.71164, 2.94543)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5119, 0.894025, 1.12099)
+[node name="CSGBox3D6" type="CSGBox3D" parent="ENV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.02394, 0.235212, 0.198951)
 use_collision = true
 size = Vector3(2.81006, 1.40424, 2.94543)
 
-[node name="CSGBox3D9" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.93235, 0.709845, 1.31994)
+[node name="CSGBox3D9" type="CSGBox3D" parent="ENV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.44439, 0.051032, 0.397901)
 use_collision = true
 size = Vector3(2.81006, 0.433077, 2.94543)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0204809, 2.71745, -15.9362)
+[node name="CSGBox3D4" type="CSGBox3D" parent="ENV"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.53252, 2.05864, -16.8582)
 use_collision = true
 size = Vector3(0.777113, 6.07196, 35.8435)
 material = SubResource("ORMMaterial3D_sr0qy")
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.112591, 2.68228, 15.7318)
+[node name="CSGBox3D3" type="CSGBox3D" parent="ENV"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.62463, 2.02347, 14.8098)
 use_collision = true
 size = Vector3(0.777113, 6.07196, 36.2645)
 material = SubResource("StandardMaterial3D_qxgi7")
 
-[node name="Player" parent="." instance=ExtResource("1_t6fw5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.71267, 0)
+[node name="CSGBox3D2" type="CSGBox3D" parent="ENV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4134, 2.01033, -0.836142)
+use_collision = true
+size = Vector3(0.777113, 6.07196, 32.2702)
+material = SubResource("StandardMaterial3D_0ghl0")
 
-[connection signal="animation_finished" from="CSGBox3D/CSGBox3D8/AnimationPlayer" to="." method="start"]
+[node name="Water" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Water"]
+skeleton = NodePath("../..")
+
+[connection signal="animation_finished" from="ENV/CSGBox3D8/AnimationPlayer" to="." method="start"]
