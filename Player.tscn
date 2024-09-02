@@ -72,7 +72,7 @@ animation = &"head_bob"
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_t6crj"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_fvp7a"]
-graph_offset = Vector2(-633.565, 15.3371)
+graph_offset = Vector2(-343.695, 44.2239)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_xsb6w")
 nodes/Animation/position = Vector2(-160, 120)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_hw3wu")
