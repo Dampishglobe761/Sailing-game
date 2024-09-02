@@ -22,20 +22,19 @@ var falling_from_jump = false
 var state = WALK
 var head_pos = DEFAULT_HEAD
 
-var t = false
-var boing = 0
+var tflag = false
 
 var stamina: int = 1
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var player = $CollisionShape3D
-@onready var animator = $AnimationTree
+@onready var animator = $Head/CameraAnimator
 
 func _ready():
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-    #animator.speed_scale *= 0
-    #animator.play("head_bob")
+    animator.speed_scale *= 0
+    animator.play("head_bob")
 
 func _unhandled_input(event):
     if event is InputEventMouseMotion:
@@ -43,11 +42,12 @@ func _unhandled_input(event):
         camera.rotate_x(-event.relative.y * SENSITIVITY)
 
 func _physics_process(delta: float) -> void:
-    if t and boing < 1:
-        boing = lerpf(boing,2,delta*2)
+    if tflag:
+        # animator.animation_set_next("head_bob", "head_robert")
+        animator.play("head_robert")
     else:
-        t = false
-        boing = lerpf(boing,0,delta)
+        # animator.animation_set_next("head_obert", "head_bob")
+        animator.play("head_bob")
     
     if Input.get_joy_axis(0, JOY_AXIS_RIGHT_X) < -0.2 or Input.get_joy_axis(0, JOY_AXIS_RIGHT_X) > 0.2:
         head.rotate_y(-Input.get_joy_axis(0, JOY_AXIS_RIGHT_X) * SENSITIVITY * 15)
@@ -69,15 +69,15 @@ func _physics_process(delta: float) -> void:
         WALK:
             speed = WALK_SPEED
             head_pos = DEFAULT_HEAD
-            # animator.speed_scale = 8
+            animator.speed_scale = 8
         SPRINT:
             speed = SPRINT_SPEED
             head_pos = DEFAULT_HEAD
-            # animator.speed_scale = 13
+            animator.speed_scale = 13
         CROUCH:
             speed = CROUCH_SPEED
             head_pos = CROUCH_HEAD
-            # animator.speed_scale = 4
+            animator.speed_scale = 4
 
     if not is_on_floor():
         velocity += get_gravity() * delta
@@ -89,15 +89,13 @@ func _physics_process(delta: float) -> void:
 
     head.position = lerp(head.position, head_pos, delta*15)
     
-    if not is_on_floor(): pass
-        # animator.speed_scale *= 0.4
+    if not is_on_floor():
+        animator.speed_scale *= 0.4
         
     if direction:
-        pass
-        # animator.speed_scale *= 1
+        animator.speed_scale *= 1
     else:
-        pass
-        # animator.speed_scale *= 0
+        animator.speed_scale *= 0
     
     if is_on_floor():
         if direction:
@@ -111,17 +109,24 @@ func _physics_process(delta: float) -> void:
         velocity.z = lerp(velocity.z, direction.z * speed, delta * 2.0)
 
     move_and_slide()
-    handle_trees()
 
     if is_on_floor():
         if not falling_from_jump:
             fell.emit()
         falling_from_jump = true
 
-func handle_trees():
-    animator["parameters/Blend2/blend_amount"] = boing
+    print(tflag, " ", animator.current_animation)
+
 
 func _on_fell() -> void:
-    t = true
-    # playback.
-    # playback.travel("boing")
+    tflag = true
+
+
+func _on_camera_animator_current_animation_changed(name: String) -> void:
+    print("weed")
+    if name == "head_robert":
+        tflag = false
+
+
+func _on_camera_animator_animation_finished(anim_name: StringName) -> void:
+    pass # Replace with function body.
