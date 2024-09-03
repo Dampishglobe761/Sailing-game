@@ -1,4 +1,6 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cpurvhxcgnn3r"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cpurvhxcgnn3r"]
+
+[ext_resource type="FontFile" uid="uid://ct000fifer8m5" path="res://cok_res/fonts/vhsretro/vhs-retro.otf" id="1_ie8jp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ic4y"]
 bg_color = Color(0.758837, 0.616379, 0.667457, 1)
@@ -11,6 +13,8 @@ corner_radius_bottom_right = 64
 corner_radius_bottom_left = 64
 
 [resource]
+Button/fonts/font = ExtResource("1_ie8jp")
+Label/fonts/font = ExtResource("1_ie8jp")
 MarginContainer/constants/margin_bottom = 32
 MarginContainer/constants/margin_left = 32
 MarginContainer/constants/margin_right = 32
@@ -41,9 +45,9 @@ RichTextLabel/fonts/bold_font = null
 RichTextLabel/fonts/bold_italics_font = null
 RichTextLabel/fonts/italics_font = null
 RichTextLabel/fonts/mono_font = null
-RichTextLabel/fonts/normal_font = null
+RichTextLabel/fonts/normal_font = ExtResource("1_ie8jp")
 RichTextLabel/styles/background = SubResource("StyleBoxFlat_8ic4y")
 RichTextLabel/styles/fill = SubResource("StyleBoxFlat_865j4")
 RichTextLabel/styles/focus = null
 RichTextLabel/styles/normal = null
-VBoxContainer/constants/separation = 4
+VBoxContainer/constants/separation = 14
